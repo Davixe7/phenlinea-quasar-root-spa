@@ -1,1 +1,7 @@
 // app global css in SCSS form
+.text-limited {
+  max-width: 200px; /* Especifica el ancho deseado */
+  white-space: nowrap !important; /* Evita que el texto se envuelva */
+  overflow: hidden; /* Oculta el texto que excede el ancho */
+  text-overflow: ellipsis; /* Muestra los puntos suspensivos */
+}
