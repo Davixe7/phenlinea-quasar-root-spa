@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { api } from "./../boot/axios";
+import { api } from "../boot/axios";
 import { useRouter } from "vue-router";
 const email = ref("root@phenlinea.com");
 const password = ref("123456");

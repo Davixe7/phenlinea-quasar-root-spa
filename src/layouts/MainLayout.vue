@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header color="grey">
+    <!-- <q-header color="grey">
       <q-toolbar>
         <q-btn
           flat
@@ -42,17 +42,28 @@
           label="Mensajería"
         />
       </q-tabs>
-    </q-header>
+    </q-header> -->
 
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
-      bordered
+      :mini="miniState"
+      :width="240"
     >
-      <q-list>
-        <q-item-label header>
-          Navegación
-        </q-item-label>
+      <q-list padding>
+        <q-item clickable tag="a" target="_blank">
+          <q-item-section avatar>
+            <q-avatar rounded>
+              <q-img src="/src/assets/logo.png" />
+            </q-avatar>
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label style="font-size: 15.5px; color: #000"
+              >PHenlinea</q-item-label
+            >
+          </q-item-section>
+        </q-item>
 
         <EssentialLink
           v-for="link in linksList"
@@ -71,59 +82,77 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
-import { api } from 'src/boot/axios';
-import { useRouter } from 'vue-router';
+import { ref } from "vue";
+import EssentialLink from "components/EssentialLink.vue";
+import { api } from "src/boot/axios";
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
+const miniState = ref(false);
 
 async function logout() {
-  let baseUrl = new URL(api.defaults.baseURL).origin
-  await api.post(`${baseUrl}/logout`)
-  router.push('/login')
+  let baseUrl = new URL(api.defaults.baseURL).origin;
+  await api.post(`${baseUrl}/logout`);
+  router.push("/login");
 }
 
 defineOptions({
-  name: 'MainLayout'
-})
+  name: "MainLayout",
+});
 
 const linksList = [
   {
-    title: 'Inicio',
-    caption: '',
-    icon: 'sym_o_dashboard',
-    link: 'https://quasar.dev'
+    title: "Inicio",
+    caption: "",
+    icon: "sym_o_dashboard",
+    link: "inicio",
   },
   {
-    title: 'Administradores',
-    caption: 'Listar, crear, actualizar, eliminar',
-    icon: 'sym_o_domain',
-    link: 'https://quasar.dev'
+    title: "Administradores",
+    caption: "Listar, crear, actualizar, eliminar",
+    icon: "sym_o_domain",
+    link: "admins",
   },
   {
-    title: 'Porterias',
-    caption: 'Listar, crear, actualizar, eliminar',
-    icon: 'sym_o_gate',
-    link: 'https://github.com/quasarframework'
+    title: "Porterias",
+    caption: "Listar, crear, actualizar, eliminar",
+    icon: "sym_o_gate",
+    link: "porterias",
   },
   {
-    title: 'Facturas',
-    caption: 'Historial, importar',
-    icon: 'sym_o_receipt_long',
-    link: 'https://chat.quasar.dev'
+    title: "Facturas",
+    caption: "Historial, importar",
+    icon: "sym_o_receipt_long",
+    link: "facturas",
   },
   {
-    title: 'Mensajería',
-    caption: 'Historial, instancias, proveedores',
-    icon: 'sym_o_record_voice_over',
-    link: 'https://forum.quasar.dev'
-  }
-]
+    title: "Mensajería",
+    caption: "Historial, instancias, proveedores",
+    icon: "sym_o_record_voice_over",
+    link: "whatsapp",
+  },
+];
 
-const leftDrawerOpen = ref(false)
+const leftDrawerOpen = ref(false);
 
 function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+  leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
+
+<style>
+.q-drawer {
+  top: 24px;
+  left: 12px;
+  bottom: 12px;
+  border-radius: 5px;
+}
+.q-list {
+  padding: 0.5rem;
+}
+.q-item {
+  border-radius: 5px;
+  font-weight: 500;
+  color: #404040;
+}
+</style>
